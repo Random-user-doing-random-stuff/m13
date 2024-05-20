@@ -1,0 +1,88 @@
+@import url('https://fonts.googleapis.com/css2?family=Poetsen+One&display=swap');
+
+* {
+	font-family: "Poetsen One", sans-serif;
+	
+}
+
+input {
+	height: 1.875em;
+	border-radius: 0.313em;
+	border: solid black 2px;
+	margin: 0.625em 0;
+	background-color: rgba(255, 255, 255, 0.5);
+	width: 80%;
+}
+
+.input-text {
+	font-size: 1.3em;
+	margin: 0;
+	padding: 0;
+}
+
+.form-button {
+	margin-top: 1em;
+	height: 2.3em;
+	width: 80%;
+	color: #fff;
+	background: #7cbfb6;
+	font-size: 1.0em;
+	transition: transform 0.5s ease;
+}
+.form-button:hover {
+	background: #7caabf;
+	cursor: pointer;
+	transform: scale(0.95);
+	transition: transform 0.5s ease;
+}
+
+.container {
+	z-index: -1;
+	width: 16%;
+	height: auto;
+	border-radius: 10px;
+	position: fixed;
+	top: 30%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	border: solid black 2px;
+ 	background-color: rgba(255, 255, 255, 0.4);
+	backdrop-filter: blur(1.5em);
+	text-align: center;
+}
+
+form {
+	margin-top: 3.125em;
+	text-align: center;
+}
+
+body {
+	background-image: url('ok1.png');
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+	background-size: 100% 100%;
+}
+
+h2 {
+    text-shadow: -1px 0 white, 0 1px white, 1px 0 white, 0 -1px white;
+	color: #7cbfb6;
+	text-align: center;
+	margin: 0;
+	z-index: 1;
+	font-size: 2.0em;
+	display: fixed;
+}
+
+.register {
+	
+	text-decoration: none;
+	color: #7cbfb6;
+	font-size: 1.0em;
+}
+
+.register:hover {
+	color: #84bf7c;
+	font-size: large;
+	transition: font-size 0.3s ease;
+	transform-origin: center;
+}
