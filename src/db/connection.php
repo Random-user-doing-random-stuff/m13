@@ -28,7 +28,7 @@ function createUser($connection, $username, $password)
         return -1;
     }
 
-    $query = "INSERT INTO user (username, `password`) VALUES (:username, :`password`)";
+    $query = "INSERT INTO user (username, password) VALUES (:username, :password)";
     $statement = $connection->prepare($query);
     $statement->bindParam(':username', $username);
     $statement->bindParam(':password', $password);

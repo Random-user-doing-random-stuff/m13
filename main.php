@@ -55,18 +55,24 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Main</title>
+    <title>home</title>
     <link rel="stylesheet" href="main.css">
 </head>
 
 <body>
+<h2>
+    HOME 
+    <label for="mode">
+        <input type="checkbox" id="mode" name="mode">
+    </label>
+</h2>
     <div class="card-container">
         <?php foreach ($items as $item): ?>
             <!--             <?php echo (htmlspecialchars($item['image']) == null ? "SIM" : "NAO"); ?> -->
             <div class="card">
                 <div class="card-inner">
                     <div class="card-front"
-                        style="background-image: url('uploads/<?php echo htmlspecialchars($item['image']); ?>');">
+                        style="background-image: url('uploads/<?php echo htmlspecialchars($item['image']); ?>'); background-size: 100% 100%; ">
                         <p>
                             <?php echo htmlspecialchars($item['nome']); ?>
                         </p>
@@ -75,6 +81,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit'])) {
                         <p>
                             <?php echo htmlspecialchars($item['desc']); ?>
                         </p>
+                        <div class="owner">sergi</div>
                     </div>
                 </div>
             </div>
@@ -90,9 +97,3 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit'])) {
 </body>
 
 </html>
-
-ID
-nome
-desc
-datain
-image
