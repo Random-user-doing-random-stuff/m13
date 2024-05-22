@@ -68,3 +68,29 @@ function addItem($nome, $desc, $image) {
         return -1;
     }
 }
+
+function getAnimal($connection, $animal_id)
+{
+    $query = "SELECT * FROM animals WHERE id = :id";
+    $statement = $connection->prepare($query);
+    $statement->bindParam(':id', $animal_id);
+    $statement->execute();
+    return $statement->fetch();
+}
+
+function getFacts($connection, $animal_id) {
+    $query = 'SELECT * FROM user_animal WHERE animal_id = :animal_id';
+    $statement = $connection->prepare($query);
+    $statement->bindParam(':animal_id', $animal_id);
+    $statement->execute();
+
+    return $statement->fetch();
+}
+
+function debug_to_console($data) {
+    $output = $data;
+    if (is_array($output))
+        $output = implode(',', $output);
+
+    echo "<script>console.log('Debug Objects: " . $output . "' );</script>";
+}

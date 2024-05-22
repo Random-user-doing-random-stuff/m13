@@ -30,7 +30,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit'])) {
 
     // Move the uploaded file to the target directory
     if (move_uploaded_file($_FILES['image']['tmp_name'], $targetFile)) {
-
         addItem($nome, $desc, $image);
         $_POST['nome'] = '';
         $_POST['desc'] = '';
@@ -41,11 +40,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit'])) {
         $_POST['desc'] = '';
         $_FILES['image']['name'] = null;
         addItem($nome, $desc, null);
-
         header("Refresh:0");
-
         echo "Item added without image.";
-
     }
 }
 ?>
@@ -60,26 +56,30 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit'])) {
 </head>
 
 <body>
-<h2>
-    HOME 
-    <label for="mode">
-        <input type="checkbox" id="mode" name="mode">
-    </label>
-</h2>
+    <h2>
+        HOME
+        <div>
+            <input type="checkbox" class="checkbox" id="checkbox">
+            <label for="checkbox" class="checkbox-label">
+                <i class="fas fa-moon"></i>
+                <i class="fas fa-sun"></i>
+                <span class="ball"></span>
+            </label>
+        </div>
+    </h2>
     <div class="card-container">
         <?php foreach ($items as $item): ?>
-            <!--             <?php echo (htmlspecialchars($item['image']) == null ? "SIM" : "NAO"); ?> -->
-            <div class="card">
+            <div class="card" onclick="window.location.href='test.php?q=<?= $item['ID'] ?>'">
                 <div class="card-inner">
                     <div class="card-front"
-                        style="background-image: url('uploads/<?php echo htmlspecialchars($item['image']); ?>'); background-size: 100% 100%; ">
+                        style="background-image: url('uploads/<?php echo htmlspecialchars($item['image']); ?>'); background-size: 100% 100%;">
                         <p>
                             <?php echo htmlspecialchars($item['nome']); ?>
                         </p>
                     </div>
                     <div class="card-back">
-                        <p>
-                            <?php echo htmlspecialchars($item['desc']); ?>
+                        <p><?php
+                        echo getFacts($connection, $item['ID'])['fact'] ?? "null"; ?>
                         </p>
                         <div class="owner">sergi</div>
                     </div>
@@ -87,13 +87,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit'])) {
             </div>
         <?php endforeach; ?>
     </div>
-</body>
-<form action="main.php" method="post" enctype="multipart/form-data">
-    <input type="text" name="nome" placeholder="Name" required>
-    <input type="text" name="desc" placeholder="Description" required>
-    <input type="file" name="image" accept="image/*">
-    <button type="submit" name="submit">Add Item</button>
-</form>
+
+    <form action="main.php" method="post" enctype="multipart/form-data">
+        <input type="text" name="nome" placeholder="Name" required>
+        <input type="text" name="desc" placeholder="Description" required>
+        <input type="file" name="image" accept="image/*">
+        <button type="submit" name="submit">Add Item</button>
+    </form>
+    <script src="main.js"></script>
 </body>
 
 </html>
