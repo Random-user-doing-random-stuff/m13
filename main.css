@@ -1,93 +1,101 @@
-*{
-    font-family: "Trebuchet MS", sans-serif;
+@import url("https://fonts.googleapis.com/css2?family=Montserrat&display=swap");
+
+* {
+  font-family: "Trebuchet MS", sans-serif;
 }
 
 .card-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
 .card {
-/*     border: 2px solid black;*/
-    width: 300px;
-    height: 200px;
-    perspective: 1000px;
-    margin: 10px;
+  width: 300px;
+  height: 200px;
+  perspective: 1000px;
+  margin: 10px;
 }
 
 .card-inner {
-    width: 100%;
-    height: 100%;
-    position: relative;
-    transform-style: preserve-3d;
-    transition: transform 0.9s;
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 0.9s;
 }
 
 .card:hover .card-inner {
-    transform: rotateY(180deg);
-    cursor: pointer;
+  transform: rotateY(180deg);
+  cursor: pointer;
 }
 
 .card-front,
 .card-back {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    backface-visibility: hidden;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
 }
 
 .card-front {
-    
-    background-color: #6A2C70;
-    display: flex;
-    align-items: center;
-    color: #ffffff;
-    border-radius: 10px;
-    justify-content: center;
-    font-size: 24px;
-    transform: rotateY(0deg);
-    background-image: none;
-    
+  background-color: #6A2C70;
+  display: flex;
+  align-items: center;
+  color: #ffffff;
+  border-radius: 10px;
+  justify-content: center;
+  font-size: 24px;
+  transform: rotateY(0deg);
+  background-image: none;
 }
 
 .card-back {
-    background-color: #333;
-    color: #fff;
-    display: flex;
-    align-items: center;
-    border-radius: 10px;
-    justify-content: center;
-    font-size: 24px;
-    transform: rotateY(180deg);
+  background-color: #4CAF50;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  border-radius: 10px;
+  justify-content: center;
+  font-size: 24px;
+  transform: rotateY(180deg);
 }
 
 .card-back .owner {
-    position: absolute; /* Position the owner text absolutely */
-    top: 80%; /* Position it below the description */
-    left: 80%; /* Align it to the left */
-    margin-top: 10px; /* Add some space from the bottom of the description */
-    font-weight: bold; /* Example styling */
-    color: #fff; /* Example styling */
-    font-size: small;
+  position: absolute;
+  top: 80%;
+  left: 80%;
+  margin-top: 10px;
+  font-weight: bold;
+  color: #fff;
+  font-size: small;
 }
-
 
 h2 {
-    border-bottom: 2px solid black;
-    text-align: center;
-    padding-bottom: 1vh; /* Using vh instead of dvh for better compatibility */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 10px; /* Optional: adds space between text and checkbox */
+  border-bottom: 2px solid black;
+  text-align: center;
+  padding-bottom: 1vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin-top: -8px;
 }
 
+body.light-mode {
+  background-color: white;
+  color: black;
+}
 
+body.dark-mode {
+  background-color: #292c35;
+  color: white;
+}
 
-body.dark {background-color: #292c35;} /* #9b59b6 */
-
-body.dark h1, body.dark .support a {color: #fff;}
+body.dark-mode h2,
+body.dark-mode .support a {
+  color: #fff;
+}
 
 .checkbox {
   opacity: 0;
@@ -107,9 +115,13 @@ body.dark h1, body.dark .support a {color: #fff;}
   align-items: center;
 }
 
-.fa-moon {color: #f1c40f;}
+.fa-moon {
+  color: #f1c40f;
+}
 
-.fa-sun {color: #f39c12;}
+.fa-sun {
+  color: #f39c12;
+}
 
 .checkbox-label .ball {
   background-color: #fff;
@@ -127,40 +139,46 @@ body.dark h1, body.dark .support a {color: #fff;}
 }
 
 form {
-    background-color: #4654e1;
-    width: 300px;
-    height: 44px;
-    border-radius: 5px;
-    display:flex;
-    flex-direction:row;
-    align-items:center;
-  }
+  background-color: #4654e1;
+  width: 300px;
+  height: 44px;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
 
-  input {
-    all: unset;
-    font: 16px system-ui;
-    color: #fff;
-    height: 100%;
-    width: 100%;
-    padding: 6px 10px;
-  }
+input {
+  all: unset;
+  font: 16px system-ui;
+  color: #fff;
+  height: 100%;
+  width: 100%;
+  padding: 6px 10px;
+}
 
-  ::placeholder {
-    color: #fff;
-    opacity: 0.7; 
-  }
+::placeholder {
+  color: #fff;
+  opacity: 0.7;
+}
 
-  svg {
-    color: #fff;
-    fill: currentColor;
-    width: 24px;
-    height: 24px;
-    padding: 10px;
-  }
+svg {
+  color: #fff;
+  fill: currentColor;
+  width: 24px;
+  height: 24px;
+  padding: 10px;
+}
 
-  button {
-    all: unset;
-    cursor: pointer;
-    width: 44px;
-    height: 44px;
-  }
+button {
+  all: unset;
+  cursor: pointer;
+  width: 44px;
+  height: 44px;
+}
+
+body.dark-mode .card-back {
+  background-color: #4654e1;
+  color: white;
+}
+

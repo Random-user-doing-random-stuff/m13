@@ -51,13 +51,12 @@ function fetchItems($connection)
     return $arr;
 }
 
-function addItem($nome, $desc, $image) {
+function addItem($nome, $image) {
     global $connection;
 
-    $query = "INSERT INTO animals (nome, `desc`, image) VALUES (:nome, :desc, :image)";
+    $query = "INSERT INTO animals (nome, image) VALUES (:nome, :image)";
     $statement = $connection->prepare($query);
     $statement->bindParam(':nome', $nome);
-    $statement->bindParam(':desc', $desc);
     $statement->bindParam(':image', $image);
 
     try {

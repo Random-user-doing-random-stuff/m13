@@ -17,7 +17,6 @@ $items = fetchItems($connection);
 // Handle form submission
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit'])) {
     $nome = $_POST['nome'];
-    $desc = $_POST['desc'];
     $image = $_FILES['image']['name'] ?? null;
     $targetDir = "uploads/";
 
@@ -30,16 +29,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit'])) {
 
     // Move the uploaded file to the target directory
     if (move_uploaded_file($_FILES['image']['tmp_name'], $targetFile)) {
-        addItem($nome, $desc, $image);
+        addItem($nome, $image);
         $_POST['nome'] = '';
-        $_POST['desc'] = '';
         $_FILES['image']['name'] = null;
         header("Refresh:0");
     } else {
         $_POST['nome'] = '';
-        $_POST['desc'] = '';
         $_FILES['image']['name'] = null;
-        addItem($nome, $desc, null);
+        addItem($nome, null);
         header("Refresh:0");
         echo "Item added without image.";
     }
@@ -47,15 +44,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit'])) {
 ?>
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>home</title>
     <link rel="stylesheet" href="main.css">
 </head>
-
-<body>
+<body class="light-mode">
     <h2>
         HOME
         <div>
@@ -71,16 +66,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit'])) {
         <?php foreach ($items as $item): ?>
             <div class="card" onclick="window.location.href='test.php?q=<?= $item['ID'] ?>'">
                 <div class="card-inner">
-                    <div class="card-front"
-                        style="background-image: url('uploads/<?php echo htmlspecialchars($item['image']); ?>'); background-size: 100% 100%;">
-                        <p>
-                            <?php echo htmlspecialchars($item['nome']); ?>
-                        </p>
+                    <div class="card-front" style="background-image: url('uploads/<?php echo htmlspecialchars($item['image']); ?>'); background-size: 100% 100%;">
+                        <p><?php echo htmlspecialchars($item['nome']); ?></p>
                     </div>
                     <div class="card-back">
-                        <p><?php
-                        echo getFacts($connection, $item['ID'])['fact'] ?? "null"; ?>
-                        </p>
+                        <p><?php echo getFacts($connection, $item['ID'])['fact'] ?? "null"; ?></p>
                         <div class="owner">sergi</div>
                     </div>
                 </div>
@@ -90,11 +80,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit'])) {
 
     <form action="main.php" method="post" enctype="multipart/form-data">
         <input type="text" name="nome" placeholder="Name" required>
-        <input type="text" name="desc" placeholder="Description" required>
         <input type="file" name="image" accept="image/*">
         <button type="submit" name="submit">Add Item</button>
     </form>
     <script src="main.js"></script>
 </body>
-
 </html>
