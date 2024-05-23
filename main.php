@@ -44,29 +44,36 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit'])) {
 ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>home</title>
     <link rel="stylesheet" href="main.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 </head>
+
 <body class="light-mode">
-    <h2>
-        HOME
-        <div>
-            <input type="checkbox" class="checkbox" id="checkbox">
-            <label for="checkbox" class="checkbox-label">
-                <i class="fas fa-moon"></i>
-                <i class="fas fa-sun"></i>
-                <span class="ball"></span>
-            </label>
-        </div>
-    </h2>
+    <header>
+        <h2>
+            HOME
+        </h2>
+        <input type="checkbox" class="checkbox" id="checkbox">
+        <label for="checkbox" class="checkbox-label">
+            <i class="fas fa-moon"></i>
+            <i class="fas fa-sun"></i>
+            <span class="ball"></span>
+        </label>
+    </header>
+
+
+
     <div class="card-container">
         <?php foreach ($items as $item): ?>
             <div class="card" onclick="window.location.href='test.php?q=<?= $item['ID'] ?>'">
                 <div class="card-inner">
-                    <div class="card-front" style="background-image: url('uploads/<?php echo htmlspecialchars($item['image']); ?>'); background-size: 100% 100%;">
+                    <div class="card-front"
+                        style="background-image: url('uploads/<?php echo htmlspecialchars($item['image']); ?>'); background-size: 100% 100%;">
                         <p><?php echo htmlspecialchars($item['nome']); ?></p>
                     </div>
                     <div class="card-back">
@@ -85,4 +92,5 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit'])) {
     </form>
     <script src="main.js"></script>
 </body>
+
 </html>
