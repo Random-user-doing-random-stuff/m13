@@ -74,7 +74,7 @@
 h2 {
   width: 100%;
   font-size: 2rem;
-  text-align: center;  
+  text-align: center;
   border-bottom: 2px solid black;
   padding-bottom: 50px;
   gap: 10px;
@@ -103,6 +103,7 @@ body.dark-mode .support a {
 }
 
 .checkbox-label {
+  float: right;
   margin-top: 0;
   padding-bottom: 0%;
   bottom: auto;
@@ -141,7 +142,48 @@ body.dark-mode .support a {
   transform: translateX(24px);
 }
 
-form {
+form[id="form"] {
+  float: left;
+  background-color: #e28413;
+  width: 300px;
+  height: 44px;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 10px;
+}
+
+input[id="query"] {
+  all: unset;
+  font: 16px system-ui;
+  color: #fff;
+  height: 100%;
+  width: 100%;
+  padding: 6px 10px;
+}
+
+::placeholder {
+  color: #fff;
+  opacity: 0.7;
+}
+
+svg {
+  color: #fff;
+  fill: currentColor;
+  width: 24px;
+  height: 24px;
+  padding: 10px;
+}
+
+button {
+  all: unset;
+  cursor: pointer;
+  width: 44px;
+  height: 44px;
+}
+
+/* form {
   background-color: #4654e1;
   width: 300px;
   height: 44px;
@@ -149,15 +191,15 @@ form {
   display: flex;
   flex-direction: row;
   align-items: center;
-}
-
+} */
+/* 
 input {
   all: unset;
   font: 16px system-ui;
   color: #fff;
   padding: 6px 10px;
   cursor: pointer;
-}
+} */
 
 ::placeholder {
   color: #fff;
@@ -187,13 +229,21 @@ body.dark-mode .card-front {
   background-color: #14213d;
 }
 
-body.dark-mode  h2{
+body.dark-mode h2 {
   border-bottom: 2px solid white;
 }
 
 header {
+  width: 100%;
   display: flex;
+  flex-wrap: wrap;
+  padding: 10px;
+  column-gap: normal;
   justify-content: space-between;
+}
+
+.headsssss {
   align-items: center;
-  /* padding: 10px; */
+  width: 80%;
+  margin: 0 20px;
 }

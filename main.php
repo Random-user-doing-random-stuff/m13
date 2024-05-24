@@ -54,18 +54,28 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit'])) {
 </head>
 
 <body class="light-mode">
-    <header>
-        <h2>
-            HOME
-        </h2>
-        <input type="checkbox" class="checkbox" id="checkbox">
-        <label for="checkbox" class="checkbox-label">
-            <i class="fas fa-moon"></i>
-            <i class="fas fa-sun"></i>
-            <span class="ball"></span>
-        </label>
-    </header>
 
+    <header>
+        <div class="headsssss">
+            <form role="search" id="form">
+                <input type="search" id="query" name="q" placeholder="Search..."
+                    aria-label="Search through site content">
+                <button>
+                    <svg viewBox="0 0 1024 1024">
+                        <path class="path1"
+                            d="M848.471 928l-263.059-263.059c-48.941 36.706-110.118 55.059-177.412 55.059-171.294 0-312-140.706-312-312s140.706-312 312-312c171.294 0 312 140.706 312 312 0 67.294-24.471 128.471-55.059 177.412l263.059 263.059-79.529 79.529zM189.623 408.078c0 121.364 97.091 218.455 218.455 218.455s218.455-97.091 218.455-218.455c0-121.364-103.159-218.455-218.455-218.455-121.364 0-218.455 97.091-218.455 218.455z">
+                        </path>
+                    </svg>
+                </button>
+            </form>
+            <input type="checkbox" class="checkbox" id="checkbox">
+            <label for="checkbox" class="checkbox-label">
+                <i class="fas fa-moon"></i>
+                <i class="fas fa-sun"></i>
+                <span class="ball"></span>
+            </label>
+        </div>
+    </header>
 
 
     <div class="card-container">
@@ -74,10 +84,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit'])) {
                 <div class="card-inner">
                     <div class="card-front"
                         style="background-image: url('uploads/<?php echo htmlspecialchars($item['image']); ?>'); background-size: 100% 100%;">
-                        <p><?php echo htmlspecialchars($item['nome']); ?></p>
+                        <p>
+                            <?php echo htmlspecialchars($item['nome']); ?>
+                        </p>
                     </div>
                     <div class="card-back">
-                        <p><?php echo getFacts($connection, $item['ID'])['fact'] ?? "null"; ?></p>
+                        <p>
+                            <?php echo getFacts($connection, $item['ID'])['fact'] ?? "null"; ?>
+                        </p>
                         <div class="owner">sergi</div>
                     </div>
                 </div>
