@@ -10,14 +10,24 @@ try {
     die("Connection failed: " . $e->getMessage());
 }
 
-function searchUser($connection, $username = "")
+function searchUser($connection, $searchTerm, $isUsername = true)
 {
-    $query = "SELECT * FROM user";
-    foreach ($connection->query($query) as $row) {
-        if (strcmp($row['username'], $username) === 0) {
-            return $row;
-        }
+    if ($isUsername) {
+        $query = "SELECT * FROM user WHERE username = :searchTerm";
+    } else {
+        $query = "SELECT * FROM user WHERE id = :searchTerm";
     }
+
+    $stmt = $connection->prepare($query);
+    $stmt->bindParam(':searchTerm', $searchTerm, $isUsername ? PDO::PARAM_STR : PDO::PARAM_INT);
+    $stmt->execute();
+
+    $result = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    if ($result) {
+        return $result;
+    }
+
     return -1;
 }
 

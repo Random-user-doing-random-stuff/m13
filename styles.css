@@ -1,9 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Poetsen+One&display=swap');
+@import './global.css';
 
 * {
-	/* font-family: "Poetsen One", sans-serif; */
-	font-family: "Trebuchet MS", sans-serif;
-	
+	font-family: var(--font);
+	color: #fff;
 }
 
 input {
@@ -26,58 +26,57 @@ input {
 	height: 2.3em;
 	width: 80%;
 	color: #fff;
-	background: #7cbfb6;
+	background: var(--light-theme-secondary);
 	font-size: 1.0em;
 	transition: transform 0.5s ease;
 }
+
 .form-button:hover {
-	background: #7caabf;
+	background: var(--light-theme-secondary);
 	cursor: pointer;
 	transform: scale(0.95);
 	transition: transform 0.5s ease;
 }
 
 .container {
-	z-index: -1;
+	min-width: 260px;
 	width: 16%;
-	height: auto;
+	height: 35%;
 	border-radius: 10px;
 	position: fixed;
 	top: 30%;
 	left: 50%;
 	transform: translate(-50%, -50%);
 	border: solid black 2px;
- 	background-color: rgba(255, 255, 255, 0.4);
+	background-color:  var(--light-theme-primary);
 	backdrop-filter: blur(1.5em);
 	text-align: center;
 }
 
 form {
-	margin-top: 3.125em;
+	margin-top: 2.125em;
 	text-align: center;
 }
 
 body {
-	background-image: url('ok1.png');
-	background-repeat: no-repeat;
+	/* 	background-image: url('ok1.png'); */
+	/* background-repeat: no-repeat; */
+	background-color: var(--light-theme-background);
 	background-attachment: fixed;
 	background-size: 100% 100%;
 }
 
 h2 {
-    text-shadow: -1px 0 white, 0 1px white, 1px 0 white, 0 -1px white;
-	color: #7cbfb6;
+	/* text-shadow: -1px 0 white, 0 1px white, 1px 0 white, 0 -1px white; */
 	text-align: center;
-	margin: 0;
+	margin-top: 10px;
 	z-index: 1;
 	font-size: 2.0em;
-	display: fixed;
 }
 
 .register {
-	
+	padding-bottom: 2em;
 	text-decoration: none;
-	color: #7cbfb6;
 	font-size: 1.0em;
 }
 
@@ -86,4 +85,42 @@ h2 {
 	font-size: large;
 	transition: font-size 0.3s ease;
 	transform-origin: center;
+}
+
+header {
+	width: 100%;
+	display: flex;
+	padding: 10px;
+	column-gap: normal;
+	justify-content: center;
+}
+
+.headsssss {
+	display: flex;
+	justify-content: flex-end;
+	width: 100%;
+	padding: 10px;
+	margin: 0 110px;
+}
+
+body.light-mode {
+	background-color: var(--light-theme-background);
+	color: black;
+}
+
+body.dark-mode {
+	background-color: var(--dark-theme-background);
+	color: white;
+}
+
+body.dark-mode h2,
+body.dark-mode .support a {
+	color: #fff;
+}
+
+body.dark-mode .form-button {
+	background-color: var(--dark-theme-secondary);
+}
+body.dark-mode .container {
+	background-color: var(--dark-theme-primary);
 }

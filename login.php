@@ -35,9 +35,13 @@
         }
     }
     ?>
-
-    <h2 style="margin-top: 2.8%;">Login</h2>
-    <div class="container" >
+        <header>
+            <div class="headsssss">
+            <?php include 'themes/theme.php'; ?>
+            </div>
+        </header>
+        <div class="container" >
+        <h2>Login</h2>
         <form method="post" class="login">
             <p class="input-text">Username</p>
             <input type="text" name="username">
@@ -46,7 +50,6 @@
             <br> <input class="form-button" type="submit" value="Login">
         </form>
         <a class="register" href="register.php">Registar</a>
-        <br>
         <br>
     </div>
 </body>

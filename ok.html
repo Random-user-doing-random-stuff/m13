@@ -1,71 +1,254 @@
 <!DOCTYPE html>
-<html lang='en' class=''>
-  <head>
-    <meta charset='UTF-8'>
-    <title>Search Bar Demo</title>
-    <style>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Popover Form</title>
+<style>
+  /* Styling for the popover */
+  .popover {
+    display: none;
+    position: absolute;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    padding: 20px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    z-index: 9999;
+  }
+  
+  /* Styling for the form elements */
+  .popover input[type="text"] {
+    width: 100%;
+    margin-bottom: 10px;
+    padding: 8px;
+    box-sizing: border-box;
+  }
+  
+  .popover button {
+    padding: 8px 15px;
+    background-color: #007bff;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+  }
+  
+  .popover button.cancel {
+    background-color: #dc3545;
+    margin-right: 10px;
+  }
 
-      form[id="form"] {
-        background-color: #4654e1;
-        width: 300px;
-        height: 44px;
-        border-radius: 5px;
-        display:flex;
-        flex-direction:row;
-        align-items:center;
-      }
+  body {
+  font-family: sans-serif;
+  background-color: #eeeeee;
+}
 
-      input[id="query"] {
-        all: unset;
-        font: 16px system-ui;
-        color: #fff;
-        height: 100%;
-        width: 100%;
-        padding: 6px 10px;
-      }
+.file-upload {
+  background-color: #ffffff;
+  width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+}
 
-      ::placeholder {
-        color: #fff;
-        opacity: 0.7; 
-      }
+.file-upload-btn {
+  width: 100%;
+  margin: 0;
+  color: #fff;
+  background: #1FB264;
+  border: none;
+  padding: 10px;
+  border-radius: 4px;
+  border-bottom: 4px solid #15824B;
+  transition: all .2s ease;
+  outline: none;
+  text-transform: uppercase;
+  font-weight: 700;
+}
 
-      svg {
-        color: #fff;
-        fill: currentColor;
-        width: 24px;
-        height: 24px;
-        padding: 10px;
-      }
+.file-upload-btn:hover {
+  background: #1AA059;
+  color: #ffffff;
+  transition: all .2s ease;
+  cursor: pointer;
+}
 
-      button {
-        all: unset;
-        cursor: pointer;
-        width: 44px;
-        height: 44px;
-      }
-    </style>
-  </head>
-  <body>
-    <form role="search" id="form">
-      <input type="search" id="query" name="q" placeholder="Search..." aria-label="Search through site content">
-      <button>
-        <svg viewBox="0 0 1024 1024"><path class="path1" d="M848.471 928l-263.059-263.059c-48.941 36.706-110.118 55.059-177.412 55.059-171.294 0-312-140.706-312-312s140.706-312 312-312c171.294 0 312 140.706 312 312 0 67.294-24.471 128.471-55.059 177.412l263.059 263.059-79.529 79.529zM189.623 408.078c0 121.364 97.091 218.455 218.455 218.455s218.455-97.091 218.455-218.455c0-121.364-103.159-218.455-218.455-218.455-121.364 0-218.455 97.091-218.455 218.455z"></path></svg>
-      </button>
-    </form>
-    <script>
-      const f = document.getElementById('form');
-      const q = document.getElementById('query');
-      const google = 'https://www.google.com/search?q=site%3A+';
-      const site = 'pagedart.com';
+.file-upload-btn:active {
+  border: 0;
+  transition: all .2s ease;
+}
 
-      function submitted(event) {
-        event.preventDefault();
-        const url = google + site + '+' + q.value;
-        const win = window.open(url, '_blank');
-        win.focus();
-      }
+.file-upload-content {
+  display: none;
+  text-align: center;
+}
 
-      f.addEventListener('submit', submitted);
-    </script>
-  </body>
+.file-upload-input {
+  position: absolute;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  outline: none;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.image-upload-wrap {
+  margin-top: 20px;
+  border: 4px dashed #1FB264;
+  position: relative;
+}
+
+.image-dropping,
+.image-upload-wrap:hover {
+  background-color: #1FB264;
+  border: 4px dashed #ffffff;
+}
+
+.image-title-wrap {
+  padding: 0 15px 15px 15px;
+  color: #222;
+}
+
+.drag-text {
+  text-align: center;
+}
+
+.drag-text h3 {
+  font-weight: 100;
+  text-transform: uppercase;
+  color: #15824B;
+  padding: 60px 0;
+}
+
+.file-upload-image {
+  max-height: 200px;
+  max-width: 200px;
+  margin: auto;
+  padding: 20px;
+}
+
+.remove-image {
+  width: 200px;
+  margin: 0;
+  color: #fff;
+  background: #cd4535;
+  border: none;
+  padding: 10px;
+  border-radius: 4px;
+  border-bottom: 4px solid #b02818;
+  transition: all .2s ease;
+  outline: none;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
+.remove-image:hover {
+  background: #c13b2a;
+  color: #ffffff;
+  transition: all .2s ease;
+  cursor: pointer;
+}
+
+.remove-image:active {
+  border: 0;
+  transition: all .2s ease;
+}
+</style>
+</head>
+<body>
+
+<button id="popoverBtn">Open Popover</button>
+
+<div id="popover" class="popover">
+  <form id="form">
+    <label for="name">Name:</label><br>
+    <input type="text" id="name" name="name"><br>
+    <script class="jsbin" src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+<div class="file-upload">
+  <button class="file-upload-btn" type="button" onclick="$('.file-upload-input').trigger( 'click' )">Add Image</button>
+
+  <div class="image-upload-wrap">
+    <input class="file-upload-input" type='file' onchange="readURL(this);" accept="image/*" />
+    <div class="drag-text">
+      <h3>Drag and drop a file or select add Image</h3>
+    </div>
+  </div>
+  <div class="file-upload-content">
+    <img class="file-upload-image" src="#" alt="your image" />
+    <div class="image-title-wrap">
+      <button type="button" onclick="removeUpload()" class="remove-image">Remove <span class="image-title">Uploaded Image</span></button>
+    </div>
+  </div>
+</div>
+    <button type="button" id="confirmBtn">Confirm</button>
+    <button type="button" id="cancelBtn" class="cancel">Cancel</button>
+  </form>
+</div>
+
+<script>
+  // Get the button and popover elements
+  const popoverBtn = document.getElementById('popoverBtn');
+  const popover = document.getElementById('popover');
+  const confirmBtn = document.getElementById('confirmBtn');
+  const cancelBtn = document.getElementById('cancelBtn');
+  
+  // Show popover when button is clicked
+  popoverBtn.addEventListener('click', () => {
+    popover.style.display = 'block';
+  });
+  
+  // Hide popover when cancel button is clicked
+  cancelBtn.addEventListener('click', () => {
+    popover.style.display = 'none';
+  });
+  
+  // Handle form submission when confirm button is clicked
+  confirmBtn.addEventListener('click', () => {
+    const name = document.getElementById('name').value;
+    const image = document.getElementById('file-upload-input').value;
+
+    // Handle form submission (e.g., send data to server)
+    console.log('Name:', name);
+    console.log('Image:', image);
+    
+    // Close popover
+    popover.style.display = 'none';
+  });
+
+  function readURL(input) {
+  if (input.files && input.files[0]) {
+
+    var reader = new FileReader();
+
+    reader.onload = function(e) {
+      $('.image-upload-wrap').hide();
+
+      $('.file-upload-image').attr('src', e.target.result);
+      $('.file-upload-content').show();
+
+      $('.image-title').html(input.files[0].name);
+    };
+
+    reader.readAsDataURL(input.files[0]);
+
+  } else {
+    removeUpload();
+  }
+}
+
+function removeUpload() {
+  $('.file-upload-input').replaceWith($('.file-upload-input').clone());
+  $('.file-upload-content').hide();
+  $('.image-upload-wrap').show();
+}
+$('.image-upload-wrap').bind('dragover', function () {
+		$('.image-upload-wrap').addClass('image-dropping');
+	});
+	$('.image-upload-wrap').bind('dragleave', function () {
+		$('.image-upload-wrap').removeClass('image-dropping');
+});
+
+</script>
+
+</body>
 </html>

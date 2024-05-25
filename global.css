@@ -1,0 +1,11 @@
+:root {
+    --font: "Trebuchet MS", sans-serif;
+
+    --light-theme-primary: #000022;
+    --light-theme-secondary: #e28413;
+    --light-theme-background: #fbf5f3;
+
+    --dark-theme-primary: #14213d;
+    --dark-theme-secondary: #fca311;
+    --dark-theme-background: #000000;
+}
