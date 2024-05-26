@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 26-Maio-2024 às 12:31
+-- Tempo de geração: 26-Maio-2024 às 16:20
 -- Versão do servidor: 10.4.32-MariaDB
 -- versão do PHP: 8.2.12
 
@@ -24,146 +24,96 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `animals`
+-- Estrutura da tabela `topics`
 --
 
-CREATE TABLE `animals` (
-  `ID` int(11) NOT NULL,
-  `nome` varchar(255) NOT NULL,
-  `datain` timestamp NOT NULL DEFAULT current_timestamp(),
+CREATE TABLE `topics` (
+  `topic_id` int(11) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `date_added` timestamp NOT NULL DEFAULT current_timestamp(),
   `image` mediumblob DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Extraindo dados da tabela `animals`
+-- Extraindo dados da tabela `topics`
 --
 
-INSERT INTO `animals` (`ID`, `nome`, `datain`, `image`) VALUES
-(1, 'elefante', '2024-05-17 22:06:49', ''),
-(9, 'test', '2024-05-17 22:29:49', 0x44657369676e2073656d206e6f6d6520283529202832292e706e67),
-(27, 'as', '2024-05-19 16:54:21', 0x64643132333137365f335b315d2e6a7067),
-(28, 'as', '2024-05-19 16:54:22', 0x64643132333137365f335b315d2e6a7067),
-(29, 'as', '2024-05-19 22:45:50', 0x64643132333137365f335b315d2e6a7067),
-(30, 'as', '2024-05-19 22:45:52', 0x64643132333137365f335b315d2e6a7067),
-(31, 'as', '2024-05-19 22:45:54', 0x64643132333137365f335b315d2e6a7067),
-(32, 'as', '2024-05-19 22:45:54', 0x64643132333137365f335b315d2e6a7067),
-(33, 'as', '2024-05-19 22:45:55', 0x64643132333137365f335b315d2e6a7067),
-(34, 'as', '2024-05-19 22:45:55', 0x64643132333137365f335b315d2e6a7067),
-(35, 'as', '2024-05-19 22:45:56', 0x64643132333137365f335b315d2e6a7067),
-(36, 'as', '2024-05-19 22:45:58', 0x64643132333137365f335b315d2e6a7067),
-(37, 'as', '2024-05-19 22:45:59', 0x64643132333137365f335b315d2e6a7067),
-(38, 'as', '2024-05-19 22:45:59', 0x64643132333137365f335b315d2e6a7067),
-(39, 'as', '2024-05-19 22:46:00', 0x64643132333137365f335b315d2e6a7067),
-(40, 'as', '2024-05-19 22:46:00', 0x64643132333137365f335b315d2e6a7067),
-(41, 'as', '2024-05-19 22:46:01', 0x64643132333137365f335b315d2e6a7067),
-(46, 'barata', '2024-05-19 22:54:00', NULL),
-(47, 'as', '2024-05-19 22:54:04', NULL),
-(48, 'ok', '2024-05-19 22:54:12', NULL),
-(49, 'ok', '2024-05-19 22:54:18', NULL),
-(50, 'ok', '2024-05-19 22:54:19', NULL),
-(51, 'sas', '2024-05-19 22:57:02', 0x30303364313430356433643033653538633734303465353436376162336535322e6a7067),
-(52, 'asssss', '2024-05-19 22:57:25', NULL),
-(53, 'ruben', '2024-05-23 11:00:03', 0x5f3130363534343731315f65343932323530372d363733612d346632662d623931642d3334373939393461383730622e6a7067),
-(54, 'aaaaaaaaaaasasa', '2024-05-25 17:21:25', NULL),
-(55, 'boas', '2024-05-25 18:22:15', 0x313130363630382d70657272792d7468652d706c6174797075732d77616c6c70617065722d3139323078313038302d66756c6c2d68642e6a7067);
+INSERT INTO `topics` (`topic_id`, `name`, `date_added`, `image`) VALUES
+(1, 'Morcegos', '2024-05-26 13:35:26', 0x45344532324646372d373333352d344138412d384233303831463635304145344531345f736f757263652e77656270),
+(2, 'Venus', '2024-05-26 13:45:24', 0x76656e7573322d6a70672e77656270),
+(3, 'Porquinho-da-índia', '2024-05-26 13:55:40', 0x53656d2d54c3ad74756c6f2e706e67),
+(4, 'Elefante', '2024-05-26 13:56:55', 0x7472616e7366657269722e6a7067),
+(5, 'Golfinho', '2024-05-26 13:57:28', 0x7472616e736665726972202831292e6a7067);
 
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `user`
+-- Estrutura da tabela `users`
 --
 
-CREATE TABLE `user` (
-  `id` int(11) NOT NULL,
-  `username` varchar(256) NOT NULL,
-  `password` varchar(256) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Extraindo dados da tabela `user`
---
-
-INSERT INTO `user` (`id`, `username`, `password`) VALUES
-(1, 'sergi', 'test'),
-(2, 'rubi', 'oi');
-
--- --------------------------------------------------------
-
---
--- Estrutura da tabela `user_animal`
---
-
-CREATE TABLE `user_animal` (
-  `ID` int(11) NOT NULL,
+CREATE TABLE `users` (
   `user_id` int(11) NOT NULL,
-  `animal_id` int(11) NOT NULL,
-  `fact` varchar(255) DEFAULT NULL
+  `username` varchar(64) NOT NULL,
+  `password` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Extraindo dados da tabela `user_animal`
+-- Extraindo dados da tabela `users`
 --
 
-INSERT INTO `user_animal` (`ID`, `user_id`, `animal_id`, `fact`) VALUES
-(1, 1, 27, ''),
-(2, 1, 1, 'jynzx'),
-(3, 2, 51, 'tinoni'),
-(4, 1, 1, 'bora bora upa'),
-(5, 1, 1, 'nada disso'),
-(6, 1, 1, 'kkkkkkkkkkk'),
-(7, 1, 1, 'kkkkkkkkkkk'),
-(8, 1, 1, 'kkkkkkkkkkk'),
-(9, 1, 1, 'kkkkkkkkkkk'),
-(10, 1, 1, 'muito pesado'),
-(11, 1, 1, '111111111111'),
-(12, 1, 1, '111111111111'),
-(13, 1, 1, '111111111111'),
-(14, 1, 1, 'boas2'),
-(15, 1, 1, 'boas2'),
-(16, 1, 1, 'boas2'),
-(17, 1, 1, 'boas2'),
-(18, 1, 1, 'boas2'),
-(19, 1, 1, 'bas3'),
-(20, 1, 1, 'bas3'),
-(21, 1, 1, 'bas3'),
-(22, 1, 1, 'bas3'),
-(23, 1, 1, '55'),
-(24, 1, 1, '55'),
-(25, 1, 27, 'na lagoa'),
-(26, 1, 27, 'na lagoa'),
-(27, 1, 1, 'new fact'),
-(28, 1, 1, 'new fact'),
-(29, 1, 9, 'first edited fact'),
-(30, 2, 55, 'engraçado'),
-(31, 1, 55, 'nada engraçado');
+INSERT INTO `users` (`user_id`, `username`, `password`) VALUES
+(1, 'sergi', 'oi'),
+(2, 'tomas', 'tinoni');
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `user_topic_facts`
+--
+
+CREATE TABLE `user_topic_facts` (
+  `fact_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `topic_id` int(11) NOT NULL,
+  `fact` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Extraindo dados da tabela `user_topic_facts`
+--
+
+INSERT INTO `user_topic_facts` (`fact_id`, `user_id`, `topic_id`, `fact`) VALUES
+(22, 1, 1, 'Morcegos são o único mamífero voador.'),
+(23, 1, 2, 'Em Venus 1 dia é mais longo que 1 ano'),
+(24, 2, 1, 'Nem todos os morcegos hibernam.'),
+(25, 1, 4, 'Elefantes não conseguem saltar.'),
+(26, 1, 5, 'Golfinhos dão nomes uns aos outros');
 
 --
 -- Índices para tabelas despejadas
 --
 
 --
--- Índices para tabela `animals`
+-- Índices para tabela `topics`
 --
-ALTER TABLE `animals`
-  ADD PRIMARY KEY (`ID`),
-  ADD KEY `nome` (`nome`);
+ALTER TABLE `topics`
+  ADD PRIMARY KEY (`topic_id`);
 
 --
--- Índices para tabela `user`
+-- Índices para tabela `users`
 --
-ALTER TABLE `user`
-  ADD PRIMARY KEY (`id`),
+ALTER TABLE `users`
+  ADD PRIMARY KEY (`user_id`),
   ADD UNIQUE KEY `username` (`username`),
   ADD KEY `password` (`password`);
 
 --
--- Índices para tabela `user_animal`
+-- Índices para tabela `user_topic_facts`
 --
-ALTER TABLE `user_animal`
-  ADD PRIMARY KEY (`ID`),
-  ADD UNIQUE KEY `ID` (`ID`),
-  ADD KEY `user_id` (`user_id`,`animal_id`),
-  ADD KEY `animal_id` (`animal_id`),
+ALTER TABLE `user_topic_facts`
+  ADD PRIMARY KEY (`fact_id`),
+  ADD KEY `user_id` (`user_id`),
+  ADD KEY `topic_id` (`topic_id`),
   ADD KEY `fact` (`fact`);
 
 --
@@ -171,33 +121,33 @@ ALTER TABLE `user_animal`
 --
 
 --
--- AUTO_INCREMENT de tabela `animals`
+-- AUTO_INCREMENT de tabela `topics`
 --
-ALTER TABLE `animals`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=56;
+ALTER TABLE `topics`
+  MODIFY `topic_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
--- AUTO_INCREMENT de tabela `user`
+-- AUTO_INCREMENT de tabela `users`
 --
-ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+ALTER TABLE `users`
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT de tabela `user_animal`
+-- AUTO_INCREMENT de tabela `user_topic_facts`
 --
-ALTER TABLE `user_animal`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+ALTER TABLE `user_topic_facts`
+  MODIFY `fact_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- Restrições para despejos de tabelas
 --
 
 --
--- Limitadores para a tabela `user_animal`
+-- Limitadores para a tabela `user_topic_facts`
 --
-ALTER TABLE `user_animal`
-  ADD CONSTRAINT `user_animal_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `user_animal_ibfk_2` FOREIGN KEY (`animal_id`) REFERENCES `animals` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE `user_topic_facts`
+  ADD CONSTRAINT `user_topic_facts_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `user_topic_facts_ibfk_2` FOREIGN KEY (`topic_id`) REFERENCES `topics` (`topic_id`) ON DELETE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
