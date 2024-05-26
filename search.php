@@ -3,19 +3,19 @@ session_start();
 require_once "src/db/connection.php";
 require_once 'menu/menu.php';
 
-// Fetch facts based on the query parameter
+// Buscar factos com base no parâmetro de consulta
 if (isset($_GET["q"])) {
     $facts = getFacts($connection, $_GET["q"]);
-    $item = getAnimal($connection, $_GET["q"]);
+    $item = getTopic($connection, $_GET["q"]);
 } else {
-    // Handle invalid or missing query parameter
+    // Lidar com parâmetro de consulta inválido ou ausente
 }
 
 if (isset($_POST["submit-edit"])) {
     $fact = $_POST["fact"];
     $fact_id = $_POST["fact_id"];
     $animal_id = $_GET["q"];
-    $user_id = $_SESSION['user_row']['id'];
+    $user_id = $_SESSION['user_row']['user_id'];
     editFact($connection, $fact, $fact_id);
     /* header("Refresh:0"); */
     $facts = getFacts($connection, $_GET["q"]);
@@ -23,10 +23,13 @@ if (isset($_POST["submit-edit"])) {
 if (isset($_POST["submit-fact"])) {
     $fact = $_POST["fact"];
     $animal_id = $_GET["q"];
-    $user_id = $_SESSION['user_row']['id'];
+    $user_id = $_SESSION['user_row']['user_id'];
     addFact($connection, $fact, $animal_id, $user_id);
     /* header("Refresh:0"); */
     $facts = getFacts($connection, $_GET["q"]);
+    $_POST = [];
+    header("Location: search.php?q=".$_GET["q"]); // Redirect to avoid duplicate submission
+    exit();
 }
 ?>
 
@@ -35,7 +38,7 @@ if (isset($_POST["submit-fact"])) {
 
 <head>
     <meta charset="UTF-8">
-    <title>Facts Table</title>
+    <title>Tabela de factos</title>
     <link rel="stylesheet" href="search.css">
     <link rel="stylesheet" href="main.css">
     <link rel="stylesheet" href="styles.css">
@@ -58,11 +61,11 @@ if (isset($_POST["submit-fact"])) {
             <?php include 'themes/theme.php'; ?>
         </div>
     </header>
-    <h1 class="title-search"><?php echo isset($item['nome']) ? htmlspecialchars($item['nome']) : 'Unknown'; ?></h1>
+    <h1 class="title-search"><?php echo isset($item['name']) ? htmlspecialchars($item['name']) : 'Desconhecido'; ?></h1>
     <table>
         <tr>
             <th>Facto</th>
-            <th>User</th>
+            <th>Utilizador</th>
             <th></th>
         </tr>
         <?php foreach ($facts as $fact): ?>
@@ -73,25 +76,25 @@ if (isset($_POST["submit-fact"])) {
                 <form method="post"
                     action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>?q=<?php echo htmlspecialchars($_GET['q']); ?>">
                     <td>
-                        <div id="text-<?php echo $fact['ID']; ?>" class="non-editable" contenteditable="false">
+                        <div id="text-<?php echo $fact['fact_id']; ?>" class="non-editable" contenteditable="false">
                             <?php echo htmlspecialchars($fact["fact"]); ?>
                         </div>
-                        <input type="hidden" name="fact" id="hiddenInput-<?php echo $fact['ID']; ?>"
+                        <input type="hidden" name="fact" id="hiddenInput-<?php echo $fact['fact_id']; ?>"
                             value="<?php echo htmlspecialchars($fact["fact"]); ?>">
-                        <input type="hidden" name="fact_id" value="<?php echo $fact['ID']; ?>">
+                        <input type="hidden" name="fact_id" value="<?php echo $fact['fact_id']; ?>">
                     </td>
                     <td><?php echo htmlspecialchars($user["username"]); ?></td>
                     <td>
-                        <button type="button" id="toggleBtn-<?php echo $fact['ID']; ?>" class="edit-fact" <?php if ($user["id"] != $_SESSION['user_row']['id']) {
+                        <button type="button" id="toggleBtn-<?php echo $fact['fact_id']; ?>" class="edit-fact" <?php if ($user["user_id"] != $_SESSION['user_row']['user_id']) {
                                echo "disabled style='background-color: red; cursor: not-allowed;'";
                            } ?>>
-                            Edit
+                            Editar
                         </button>
-                        <button type="submit" name="submit-edit" id="saveBtn-<?php echo $fact['ID']; ?>" class="edit-fact"
-                            style="display: none;" <?php if ($user["id"] != $_SESSION['user_row']['id']) {
+                        <button type="submit" name="submit-edit" id="saveBtn-<?php echo $fact['fact_id']; ?>" class="edit-fact"
+                            style="display: none;" <?php if ($user["user_id"] != $_SESSION['user_row']['user_id']) {
                                 echo "disabled style='background-color: red; cursor: not-allowed;'";
                             } ?>>
-                            Save
+                            Salvar
                         </button>
                     </td>
 
@@ -100,52 +103,49 @@ if (isset($_POST["submit-fact"])) {
             </tr>
         <?php endforeach; ?>
     </table>
-    <button id="popoverBtn">Add fact</button>
+    <button id="popoverBtn">Adicionar facto</button>
 
     <div id="popover" class="popover" style="display: none;">
         <form
             action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>?q=<?php echo isset($_GET['q']) ? htmlspecialchars($_GET['q']) : ''; ?>"
             method="post" enctype="multipart/form-data" class="popover-form">
-            <label for="fact">Fact:</label><br>
+            <label for="fact">Facto:</label><br>
             <input type="text" id="fact" name="fact" required><br>
             <div class="file-upload"></div>
             <div class="popover-button-container">
-                <button type="submit" id="confirmBtn" name="submit-fact">Confirm</button>
-                <button type="button" id="cancelBtn">Cancel</button>
+                <button type="submit" id="confirmBtn" name="submit-fact">Confirmar</button>
+                <button type="button" id="cancelBtn">Cancelar</button>
             </div>
         </form>
     </div>
 
     <script>
         <?php foreach ($facts as $fact): ?>
-            const textDiv<?php echo $fact['ID']; ?> = document.getElementById('text-<?php echo $fact['ID']; ?>');
-            const toggleBtn<?php echo $fact['ID']; ?> = document.getElementById('toggleBtn-<?php echo $fact['ID']; ?>');
-            const hiddenInput<?php echo $fact['ID']; ?> = document.getElementById('hiddenInput-<?php echo $fact['ID']; ?>');
-            const saveBtn<?php echo $fact['ID']; ?> = document.getElementById('saveBtn-<?php echo $fact['ID']; ?>');
+            const textDiv<?php echo $fact['fact_id']; ?> = document.getElementById('text-<?php echo $fact['fact_id']; ?>');
+            const toggleBtn<?php echo $fact['fact_id']; ?> = document.getElementById('toggleBtn-<?php echo $fact['fact_id']; ?>');
+            const hiddenInput<?php echo $fact['fact_id']; ?> = document.getElementById('hiddenInput-<?php echo $fact['fact_id']; ?>');
+            const saveBtn<?php echo $fact['fact_id']; ?> = document.getElementById('saveBtn-<?php echo $fact['fact_id']; ?>');
 
 
-            toggleBtn<?php echo $fact['ID']; ?>.addEventListener('click', () => {
-                if (textDiv<?php echo $fact['ID']; ?>.contentEditable === "true") {
-                    textDiv<?php echo $fact['ID']; ?>.contentEditable = "false";
-                    textDiv<?php echo $fact['ID']; ?>.classList.remove('editable');
-                    textDiv<?php echo $fact['ID']; ?>.classList.add('non-editable');
-                    hiddenInput<?php echo $fact['ID']; ?>.value = textDiv<?php echo $fact['ID']; ?>.textContent;
-                    saveBtn<?php echo $fact['ID']; ?>.style.display = "none";
-                    toggleBtn<?php echo $fact['ID']; ?>.style.display = "inline-block"; // Show Edit button
+            toggleBtn<?php echo $fact['fact_id']; ?>.addEventListener('click', () => {
+                if (textDiv<?php echo $fact['fact_id']; ?>.contentEditable === "true") {
+                    textDiv<?php echo $fact['fact_id']; ?>.contentEditable = "false";
+                    textDiv<?php echo $fact['fact_id']; ?>.classList.remove('editable');
+                    textDiv<?php echo $fact['fact_id']; ?>.classList.add('non-editable');
+                    hiddenInput<?php echo $fact['fact_id']; ?>.value = textDiv<?php echo $fact['fact_id']; ?>.textContent;
+                    saveBtn<?php echo $fact['fact_id']; ?>.style.display = "none";
+                    toggleBtn<?php echo $fact['fact_id']; ?>.style.display = "inline-block"; // Mostrar botão Editar
                 } else {
-                    textDiv<?php echo $fact['ID']; ?>.contentEditable = "true";
-                    textDiv<?php echo $fact['ID']; ?>.classList.remove('non-editable');
-                    textDiv<?php echo $fact['ID']; ?>.classList.add('editable');
-                    saveBtn<?php echo $fact['ID']; ?>.style.display = "inline-block"; // Show Save button
-                    toggleBtn<?php echo $fact['ID']; ?>.style.display = "none"; // Hide Edit button
+                    textDiv<?php echo $fact['fact_id']; ?>.contentEditable = "true";
+                    textDiv<?php echo $fact['fact_id']; ?>.classList.remove('non-editable');
+                    textDiv<?php echo $fact['fact_id']; ?>.classList.add('editable');
+                    saveBtn<?php echo $fact['fact_id']; ?>.style.display = "inline-block"; // Mostrar botão Salvar
+                    toggleBtn<?php echo $fact['fact_id']; ?>.style.display = "none"; // Ocultar botão Editar
                 }
             });
-            saveBtn<?php echo $fact['ID']; ?>.addEventListener('click', () => {
-                hiddenInput<?php echo $fact['ID']; ?>.value = textDiv<?php echo $fact['ID']; ?>.textContent.trim('');
+            saveBtn<?php echo $fact['fact_id']; ?>.addEventListener('click', () => {
+                hiddenInput<?php echo $fact['fact_id']; ?>.value = textDiv<?php echo $fact['fact_id']; ?>.textContent.trim('');
             });
-
-
-
         <?php endforeach; ?>
     </script>
     <script src="main.js"></script>

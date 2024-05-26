@@ -1,17 +1,23 @@
+/* Importando fonte do Google Fonts */
 @import url("https://fonts.googleapis.com/css2?family=Montserrat&display=swap");
+
+/* Importando arquivo global.css */
 @import './global.css';
+
+/* Estilos para todos os elementos */
 * {
   font-family: "Trebuchet MS", sans-serif;
   color: #fff;
 }
 
-
+/* Container para os cards */
 .card-container {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
 }
 
+/* Estilos para os cards */
 .card {
   width: 300px;
   height: 200px;
@@ -19,6 +25,7 @@
   margin: 10px;
 }
 
+/* Estilos para o conteúdo interno dos cards */
 .card-inner {
   width: 100%;
   height: 100%;
@@ -27,11 +34,13 @@
   transition: transform 0.9s;
 }
 
+/* Efeito de rotação ao passar o mouse sobre o card */
 .card:hover .card-inner {
   transform: rotateY(180deg);
   cursor: pointer;
 }
 
+/* Estilos para a frente do card */
 .card-front,
 .card-back {
   position: absolute;
@@ -40,6 +49,7 @@
   backface-visibility: hidden;
 }
 
+/* Estilos para a frente do card */
 .card-front {
   background-color: var(--light-theme-primary);
   display: flex;
@@ -52,6 +62,7 @@
   background-image: none;
 }
 
+/* Estilos para o verso do card */
 .card-back {
   background-color: var(--light-theme-secondary);
   color: #fff;
@@ -63,6 +74,7 @@
   transform: rotateY(180deg);
 }
 
+/* Estilos para o texto do dono no verso do card */
 .card-back .owner {
   position: absolute;
   top: 80%;
@@ -73,40 +85,45 @@
   font-size: small;
 }
 
-
+/* Estilos para o modo escuro do body */
 body.dark-mode .card-back {
   background-color: #fca311;
 }
 
+/* Estilos para o modo escuro do body */
 body.dark-mode .card-front {
   background-color: #14213d;
 }
 
-
+/* Estilos para o modo claro do body */
 body.light-mode {
   background-color: var(--light-theme-background);
   color: #000;
 }
 
+/* Estilos para o modo escuro do body */
 body.dark-mode {
   background-color: var(--dark-theme-background);
   color: white;
 }
 
+/* Estilos para o modo escuro do body */
 body.dark-mode h2,
 body.dark-mode .support a {
   color: #fff;
 }
 
+/* Estilos para o modo escuro do body */
 body.dark-mode h2 {
   border-bottom: 2px solid white;
 }
 
-
+/* Estilos para o modo escuro do body */
 body.dark-mode form[id="form"] {
   background-color: #fca311;
 }
 
+/* Estilos para o formulário */
 form[id="form"] {
   float: left;
   background-color: #e28413;
@@ -119,6 +136,7 @@ form[id="form"] {
   padding: 10px;
 }
 
+/* Estilos para o campo de input */
 input[id="query"] {
   all: unset;
   font: 16px system-ui;
@@ -128,11 +146,13 @@ input[id="query"] {
   padding: 6px 10px;
 }
 
+/* Estilos para o placeholder do input */
 ::placeholder {
   color: #fff;
   opacity: 0.7;
 }
 
+/* Estilos para o SVG */
 svg {
   color: #fff;
   fill: currentColor;
@@ -141,6 +161,7 @@ svg {
   padding: 10px;
 }
 
+/* Estilos para o botão */
 button {
   all: unset;
   cursor: pointer;
@@ -148,6 +169,7 @@ button {
   height: 44px;
 }
 
+/* Estilos para o cabeçalho */
 header {
   width: 100%;
   display: flex;
@@ -156,6 +178,7 @@ header {
   justify-content: center;
 }
 
+/* Estilos para o container do cabeçalho */
 .headsssss {
   display: flex;
   justify-content: space-between;
@@ -164,7 +187,7 @@ header {
   margin: 0 110px;
 }
 
-
+/* Estilos para o upload de arquivos */
 .file-upload {
   background-color: transparent;
   width: 600px;
@@ -172,6 +195,7 @@ header {
   padding: 20px;
 }
 
+/* Estilos para o botão de upload de arquivos */
 .file-upload-btn {
   width: 100%;
   margin: 0;
@@ -186,6 +210,7 @@ header {
   font-weight: 700;
 }
 
+/* Estilos para o botão de upload de arquivos ao passar o mouse */
 .file-upload-btn:hover {
   background: #1AA059;
   color: #ffffff;
@@ -193,16 +218,19 @@ header {
   cursor: pointer;
 }
 
+/* Estilos para o botão de upload de arquivos ao ser clicado */
 .file-upload-btn:active {
   border: 0;
   transition: all .2s ease;
 }
 
+/* Estilos para o conteúdo do upload de arquivos */
 .file-upload-content {
   display: none;
   text-align: center;
 }
 
+/* Estilos para o input de upload de arquivos */
 .file-upload-input {
   position: absolute;
   margin: 0;
@@ -214,27 +242,32 @@ header {
   cursor: pointer;
 }
 
+/* Estilos para a área de arrastar e soltar imagens */
 .image-upload-wrap {
   margin-top: 20px;
   border: 4px dashed #1FB264;
   position: relative;
 }
 
+/* Estilos para a área de arrastar e soltar imagens ao passar o mouse */
 .image-dropping,
 .image-upload-wrap:hover {
   background-color: #1FB264;
   border: 4px dashed #ffffff;
 }
 
+/* Estilos para o título da imagem */
 .image-title-wrap {
   padding: 0 15px 15px 15px;
   color: #222;
 }
 
+/* Estilos para o texto de arrastar e soltar */
 .drag-text {
   text-align: center;
 }
 
+/* Estilos para o título do texto de arrastar e soltar */
 .drag-text h3 {
   font-weight: 100;
   text-transform: uppercase;
@@ -242,6 +275,7 @@ header {
   padding: 60px 0;
 }
 
+/* Estilos para a imagem do upload de arquivos */
 .file-upload-image {
   max-height: 200px;
   max-width: 200px;
@@ -249,6 +283,7 @@ header {
   padding: 20px;
 }
 
+/* Estilos para o botão de remover imagem */
 .remove-image {
   width: 200px;
   margin: 0;
@@ -264,6 +299,7 @@ header {
   font-weight: 700;
 }
 
+/* Estilos para o botão de remover imagem ao passar o mouse */
 .remove-image:hover {
   background: #c13b2a;
   color: #ffffff;
@@ -271,11 +307,13 @@ header {
   cursor: pointer;
 }
 
+/* Estilos para o botão de remover imagem ao ser clicado */
 .remove-image:active {
   border: 0;
   transition: all .2s ease;
 }
 
+/* Estilos para o formulário do popover */
 .popover-form {
   border-radius: 5px;
   padding-top: 10px;
@@ -284,6 +322,7 @@ header {
   background-color: var(--bg-color-2);
 }
 
+/* Estilos para o botão de cancelar no popover */
 #cancelBtn {
   text-align: center;
   background-color: #c13b2a;
@@ -292,6 +331,7 @@ header {
   border-radius: 5px;
 }
 
+/* Estilos para o botão de confirmar no popover */
 #confirmBtn {
   text-align: center;
   background-color: #1FB264;
@@ -300,6 +340,7 @@ header {
   border-radius: 5px;
 }
 
+/* Estilos para o container de botões no popover */
 .popover-button-container {
   width: 600px;
   display: flex;
@@ -308,42 +349,44 @@ header {
   margin: 0 auto;
 }
 
-
-input[id="nome"] {
+/* Estilos para o campo de input "nome" */
+input[id="name"] {
   color: #000;
 }
 
+/* Estilos para o botão do popover */
 #popoverBtn {
-    /* margin-top: 15px; */
-    display: flex;
-    text-align: center;
-    color: #ffffff;
-    width: 15%;
-    border-radius: 5px;
-    /* margin: 20px auto; */
-    flex-direction: row;
-    flex-wrap: nowrap;
-    justify-content: center;
-    align-items: center;
+  display: flex;
+  text-align: center;
+  color: #ffffff;
+  width: 15%;
+  border-radius: 5px;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-items: center;
 }
 
+/* Estilos para o container "about" no modo claro */
 .light-mode .about-container {
   background-color: transparent;
   color: #000;
 }
 
+/* Estilos para o container "about" no modo escuro */
 .dark-mode .about-container {
   background-color: transparent;
   color: #fff;
 }
 
+/* Estilos para o título "about" no modo claro */
 .light-mode .about-title {
   color: #000;
 }
 
+/* Estilos para o container "about" */
 .about-container {
-  top: 50% ;
-  /* border: 2px solid #fca311; */
+  top: 50%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -354,14 +397,17 @@ input[id="nome"] {
   border-radius: 5px;
 }
 
+/* Estilos para o botão do popover no modo escuro */
 .dark-mode #popoverBtn {
   background-color: var(--dark-theme-secondary);
 }
 
+/* Estilos para o botão do popover no modo claro */
 .light-mode #popoverBtn {
   background-color: var(--light-theme-secondary);
 }
 
+/* Estilos para o container de botões */
 .button-container {
   display: flex;
   justify-content: space-around;
@@ -371,6 +417,7 @@ input[id="nome"] {
   flex-direction: row;
 }
 
+/* Estilos para o botão de recarregar */
 .reload-button {
   background-color: #1FB264;
   color: #fff;

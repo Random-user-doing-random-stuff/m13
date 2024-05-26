@@ -11,7 +11,7 @@
     require_once 'src/db/connection.php';
     require_once 'menu/menu.php';
 
-    // Start the session
+    // Inicia a sessão
     session_start();
 
     // Verifica se os dados foram enviados via POST
@@ -20,14 +20,14 @@
         if (!empty($_POST["username"]) && !empty($_POST["password"])) {
             $row = searchUser($connection, $_POST["username"]);
             if ($row == -1) {
-                echo "<p>Utilizador não existe</p>";
+                echo "<p class='error'>Utilizador não existe</p>";
             } else if(strcmp($_POST["username"], $row['username']) === 0 && strcmp($_POST["password"], $row['password']) === 0){
-                // Store $row in session for later use
+                // Armazena $row na sessão para uso posterior
                 $_SESSION['user_row'] = $row;
                 echo "<p> Login efetuado com sucesso </p>";
                 sleep(1);
                 header("Location: main.php");
-                exit(); // Make sure to exit after redirection
+                exit(); // Certifique-se de sair após a redireção
             } else {
                 echo "<p class='error'>Password incorreta</p>";
             }

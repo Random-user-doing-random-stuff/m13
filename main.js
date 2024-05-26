@@ -1,78 +1,70 @@
-
-
-// Function to filter items
+// Função para filtrar itens
 function filterItems() {
-    const query = document.getElementById('query').value.toLowerCase();
-    const cards = document.querySelectorAll('.card');
+  const query = document.getElementById('query').value.toLowerCase();
+  const cards = document.querySelectorAll('.card');
 
-    cards.forEach(card => {
-        const nome = card.getAttribute('data-nome').toLowerCase();
-        if (nome.includes(query)) {
-            card.style.display = 'block';
-        } else {
-            card.style.display = 'none';
-        }
-    });
+  cards.forEach(card => {
+    const nome = card.getAttribute('data-name').toLowerCase();
+    if (nome.includes(query)) {
+      card.style.display = 'block';
+    } else {
+      card.style.display = 'none';
+    }
+  });
 }
 
- // Get the button and popover elements
- const popoverBtn = document.getElementById('popoverBtn');
- const popover = document.getElementById('popover');
- const confirmBtn = document.getElementById('confirmBtn');
- const cancelBtn = document.getElementById('cancelBtn');
- 
- // Show popover when button is clicked
- popoverBtn.addEventListener('click', () => {
-   popover.style.display = 'block';
- });
- 
- // Hide popover when cancel button is clicked
- cancelBtn.addEventListener('click', () => {
-   popover.style.display = 'none';
- });
- 
- // Handle form submission when confirm button is clicked
- confirmBtn.addEventListener('click', () => {
-   const name = document.getElementById('name').value;
+// Obter os elementos do botão e popover
+const popoverBtn = document.getElementById('popoverBtn');
+const popover = document.getElementById('popover');
+const confirmBtn = document.getElementById('confirmBtn');
+const cancelBtn = document.getElementById('cancelBtn');
 
-   // Handle form submission (e.g., send data to server)
-   console.log('Name:', name);
-/*    console.log('Image:', image);
- */   
-   // Close popover
-   popover.style.display = 'none';
- });
+// Mostrar popover quando o botão é clicado
+popoverBtn.addEventListener('click', () => {
+  popover.style.display = 'block';
+});
 
- function readURL(input) {
- if (input.files && input.files[0]) {
+// Ocultar popover quando o botão de cancelar é clicado
+cancelBtn.addEventListener('click', () => {
+  popover.style.display = 'none';
+});
 
-   var reader = new FileReader();
+// Lidar com o envio do formulário quando o botão de confirmação é clicado
+confirmBtn.addEventListener('click', () => {
 
-   reader.onload = function(e) {
-     $('.image-upload-wrap').hide();
+  // Fechar popover
+  popover.style.display = 'none';
+});
 
-     $('.file-upload-image').attr('src', e.target.result);
-     $('.file-upload-content').show();
+function readURL(input) {
+  if (input.files && input.files[0]) {
 
-     $('.image-title').html(input.files[0].name);
-   };
+    var reader = new FileReader();
 
-   reader.readAsDataURL(input.files[0]);
+    reader.onload = function (e) {
+      $('.image-upload-wrap').hide();
 
- } else {
-   removeUpload();
- }
+      $('.file-upload-image').attr('src', e.target.result);
+      $('.file-upload-content').show();
+
+      $('.image-title').html(input.files[0].name);
+    };
+
+    reader.readAsDataURL(input.files[0]);
+
+  } else {
+    removeUpload();
+  }
 }
 
 function removeUpload() {
- $('.file-upload-input').replaceWith($('.file-upload-input').clone());
- $('.file-upload-content').hide();
- $('.image-upload-wrap').show();
+  $('.file-upload-input').replaceWith($('.file-upload-input').clone());
+  $('.file-upload-content').hide();
+  $('.image-upload-wrap').show();
 }
 $('.image-upload-wrap').bind('dragover', function () {
-       $('.image-upload-wrap').addClass('image-dropping');
-   });
-   $('.image-upload-wrap').bind('dragleave', function () {
-       $('.image-upload-wrap').removeClass('image-dropping');
+  $('.image-upload-wrap').addClass('image-dropping');
 });
-
+$('.image-upload-wrap').bind('dragleave', function () {
+  $('.image-upload-wrap').removeClass('image-dropping');
+});

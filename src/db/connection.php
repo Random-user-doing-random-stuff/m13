@@ -4,7 +4,6 @@ require_once 'config.php';
 
 try {
     $connection = new PDO("mysql:host=" . DB_HOST . ";dbname=" . DB_NAME, DB_USER, DB_PASS);
-
     $connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 } catch (PDOException $e) {
     die("Connection failed: " . $e->getMessage());
@@ -12,10 +11,11 @@ try {
 
 function searchUser($connection, $searchTerm, $isUsername = true)
 {
+    // Verifica se o termo de pesquisa é um nome de usuário ou um ID
     if ($isUsername) {
-        $query = "SELECT * FROM user WHERE username = :searchTerm";
+        $query = "SELECT * FROM users WHERE username = :searchTerm";
     } else {
-        $query = "SELECT * FROM user WHERE id = :searchTerm";
+        $query = "SELECT * FROM users WHERE user_id = :searchTerm";
     }
 
     $stmt = $connection->prepare($query);
@@ -24,6 +24,7 @@ function searchUser($connection, $searchTerm, $isUsername = true)
 
     $result = $stmt->fetch(PDO::FETCH_ASSOC);
 
+    // Retorna o resultado da pesquisa ou -1 se não encontrado
     if ($result) {
         return $result;
     }
@@ -33,12 +34,13 @@ function searchUser($connection, $searchTerm, $isUsername = true)
 
 function createUser($connection, $username, $password)
 {
+    // Verifica se o usuário já existe antes de criar um novo
     if (searchUser($connection, $username) !== -1) {
         echo "<p>Utilizador já existe</p>";
         return -1;
     }
 
-    $query = "INSERT INTO user (username, password) VALUES (:username, :password)";
+    $query = "INSERT INTO users (username, password) VALUES (:username, :password)";
     $statement = $connection->prepare($query);
     $statement->bindParam(':username', $username);
     $statement->bindParam(':password', $password);
@@ -53,7 +55,8 @@ function createUser($connection, $username, $password)
 
 function fetchItems($connection)
 {
-    $query = "SELECT * FROM animals";
+    // Retorna todos os itens da tabela "topics"
+    $query = "SELECT * FROM topics";
     $arr = array();
     foreach ($connection->query($query) as $row) {
         array_push($arr, $row);
@@ -61,13 +64,14 @@ function fetchItems($connection)
     return $arr;
 }
 
-function addItem($nome, $image)
+function addItem($name, $image)
 {
     global $connection;
 
-    $query = "INSERT INTO animals (nome, image) VALUES (:nome, :image)";
+    // Adiciona um novo item à tabela "topics"
+    $query = "INSERT INTO topics (name, image) VALUES (:name, :image)";
     $statement = $connection->prepare($query);
-    $statement->bindParam(':nome', $nome);
+    $statement->bindParam(':name', $name);
     $statement->bindParam(':image', $image);
 
     try {
@@ -79,30 +83,34 @@ function addItem($nome, $image)
     }
 }
 
-function getAnimal($connection, $animal_id)
+function getTopic($connection, $topic_id)
 {
-    $query = "SELECT * FROM animals WHERE id = :id";
+    // Retorna as informações de um tópico com base no ID
+    $query = "SELECT * FROM topics WHERE topic_id = :topic_id";
     $statement = $connection->prepare($query);
-    $statement->bindParam(':id', $animal_id);
+    $statement->bindParam(':topic_id', $topic_id);
     $statement->execute();
     return $statement->fetch();
 }
 
-function getFacts($connection, $animal_id)
+function getFacts($connection, $topic_id)
 {
-    $query = 'SELECT * FROM user_animal WHERE animal_id = :animal_id';
+    // Retorna todos os factos relacionados a um tópico específico
+    $query = 'SELECT * FROM user_topic_facts WHERE topic_id = :topic_id';
     $statement = $connection->prepare($query);
-    $statement->bindParam(':animal_id', $animal_id);
+    $statement->bindParam(':topic_id', $topic_id);
     $statement->execute();
 
     return $statement->fetchAll();
 }
-function addFact($connection, $fact, $animal_id, $user_id)
+
+function addFact($connection, $fact, $topic_id, $user_id)
 {
-    $query = "INSERT INTO user_animal (fact, animal_id, user_id) VALUES (:fact, :animal_id, :user_id)";
+    // Adiciona um novo facto relacionado a um tópico e usuário específicos
+    $query = "INSERT INTO user_topic_facts (fact, topic_id, user_id) VALUES (:fact, :topic_id, :user_id)";
     $statement = $connection->prepare($query);
     $statement->bindParam(':fact', $fact);
-    $statement->bindParam(':animal_id', $animal_id);
+    $statement->bindParam(':topic_id', $topic_id);
     $statement->bindParam(':user_id', $user_id);
 
     try {
@@ -110,7 +118,7 @@ function addFact($connection, $fact, $animal_id, $user_id)
         return 0;
     } catch (PDOException $e) {
         if ($e->getCode() == 23000 && strpos($e->getMessage(), 'Duplicate entry') !== false) {
-            echo "Error: Fact already exists for this animal and user.";
+            echo "Error: Fact already exists for this topic and user.";
         } else {
             echo "Error: " . $e->getMessage();
         }
@@ -120,7 +128,8 @@ function addFact($connection, $fact, $animal_id, $user_id)
 
 function editFact($connection, $new_fact, $fact_id)
 {
-    $query = "UPDATE user_animal SET fact = :fact WHERE id = :fact_id";
+    // Edita um facto existente com base no ID do facto
+    $query = "UPDATE user_topic_facts SET fact = :fact WHERE fact_id = :fact_id";
     $statement = $connection->prepare($query);
     $statement->bindParam(':fact', $new_fact);
     $statement->bindParam(':fact_id', $fact_id);
@@ -133,6 +142,7 @@ function editFact($connection, $new_fact, $fact_id)
         return -1;
     }
 }
+
 function debug_to_console($data)
 {
     $output = $data;
@@ -141,3 +151,5 @@ function debug_to_console($data)
 
     echo "<script>console.log('Debug Objects: " . $output . "' );</script>";
 }
+
+?>

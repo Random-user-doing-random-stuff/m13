@@ -1,11 +1,13 @@
 @import url('https://fonts.googleapis.com/css2?family=Poetsen+One&display=swap');
 @import './global.css';
 
+/* Define o estilo padrão para todos os elementos */
 * {
 	font-family: var(--font);
 	color: #fff;
 }
 
+/* Estilo para campos de entrada */
 input {
 	height: 1.875em;
 	border-radius: 0.313em;
@@ -15,12 +17,14 @@ input {
 	width: 80%;
 }
 
+/* Estilo para texto dentro dos campos de entrada */
 .input-text {
 	font-size: 1.3em;
 	margin: 0;
 	padding: 0;
 }
 
+/* Estilo para botões de formulário */
 .form-button {
 	margin-top: 1em;
 	height: 2.3em;
@@ -31,6 +35,7 @@ input {
 	transition: transform 0.5s ease;
 }
 
+/* Estilo para botões de formulário quando o mouse está sobre eles */
 .form-button:hover {
 	background: var(--light-theme-secondary);
 	cursor: pointer;
@@ -38,6 +43,7 @@ input {
 	transition: transform 0.5s ease;
 }
 
+/* Estilo para o container principal */
 .container {
 	margin: 50px 0;
 	min-width: 260px;
@@ -54,11 +60,13 @@ input {
 	text-align: center;
 }
 
+/* Estilo para o formulário dentro do container */
 form {
 	margin-top: 2.125em;
 	text-align: center;
 }
 
+/* Estilo para o corpo da página */
 body {
 	/* 	background-image: url('ok1.png'); */
 	/* background-repeat: no-repeat; */
@@ -67,32 +75,36 @@ body {
 	/* background-size: 100% 100%; */
 }
 
+/* Estilo para cabeçalhos */
 h2 {
-    /* text-shadow: -1px 0 white, 0 1px white, 1px 0 white, 0 -1px white; */
+	/* text-shadow: -1px 0 white, 0 1px white, 1px 0 white, 0 -1px white; */
 	clear: both;
-    text-align: center;
-    margin-top: 10px;
-    z-index: 1;
-    font-size: 2.0em;
-    display: flex;
-    flex-wrap: nowrap;
-    justify-content: center;
-    flex-direction: row;
-    align-items: center;
+	text-align: center;
+	margin-top: 10px;
+	z-index: 1;
+	font-size: 2.0em;
+	display: flex;
+	flex-wrap: nowrap;
+	justify-content: center;
+	flex-direction: row;
+	align-items: center;
 }
 
+/* Estilo para o link de registro */
 .register {
 	padding-bottom: 2em;
 	text-decoration: none;
 	font-size: 1.0em;
 }
 
+/* Estilo para o link de registro quando o mouse está sobre ele */
 .register:hover {
 	font-size: large;
 	transition: font-size 0.3s ease;
 	transform-origin: center;
 }
 
+/* Estilo para o cabeçalho */
 header {
 	width: 100%;
 	display: flex;
@@ -101,6 +113,7 @@ header {
 	justify-content: center;
 }
 
+/* Estilo para o cabeçalho secundário */
 .headsssss {
 	display: flex;
 	justify-content: flex-end;
@@ -109,28 +122,45 @@ header {
 	margin: 0 110px;
 }
 
+/* Estilo para o corpo da página em modo claro */
 body.light-mode {
 	background-color: var(--light-theme-background);
 	color: black;
 }
 
+/* Estilo para cabeçalhos em modo claro */
 body.light-mode h2{
 	color: black;
 }
 
+/* Estilo para o corpo da página em modo escuro */
 body.dark-mode {
 	background-color: var(--dark-theme-background);
 	color: white;
 }
 
+/* Estilo para cabeçalhos e links em modo escuro */
 body.dark-mode h2,
 body.dark-mode .support a {
 	color: #fff;
 }
 
+/* Estilo para botões de formulário em modo escuro */
 body.dark-mode .form-button {
 	background-color: var(--dark-theme-secondary);
 }
+
+/* Estilo para o container principal em modo escuro */
 body.dark-mode .container {
 	background-color: var(--dark-theme-primary);
+}
+
+/* Estilo para mensagens de erro em modo claro */
+body.light-mode .error{
+	color: #000;
+}
+
+/* Estilo para mensagens de erro em modo escuro */
+body.dark-mode .error{
+	color: #fff;
 }

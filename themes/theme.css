@@ -1,7 +1,7 @@
 .checkbox {
     opacity: 0;
     position: absolute;
-
+    /* Esconde o elemento checkbox */
 }
 
 .checkbox-label {
@@ -17,14 +17,17 @@
     flex-direction: row;
     justify-content: space-between;
     margin: auto 0;
+    /* Estiliza a label do checkbox */
 }
 
 .fa-moon {
     color: #f1c40f;
+    /* Define a cor do ícone da lua */
 }
 
 .fa-sun {
     color: #f39c12;
+    /* Define a cor do ícone do sol */
 }
 
 .checkbox-label .ball {
@@ -36,8 +39,10 @@
     top: 7px;
     border-radius: 50%;
     transition: transform 0.2s linear;
+    /* Estiliza a bolinha do checkbox */
 }
 
 .checkbox:checked+.checkbox-label .ball {
     transform: translateX(24px);
+    /* Move a bolinha para a direita quando o checkbox está marcado */
 }

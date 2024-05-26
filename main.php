@@ -2,50 +2,50 @@
 require_once 'src/db/connection.php';
 session_start();
 
-// Check if the user is logged in
+// Verifica se o usuário está logado
 if (!isset($_SESSION['user_row'])) {
-    // Redirect the user to the login page if not logged in
+    // Redireciona o usuário para a página de login se não estiver logado
     /* header("Location: login.php");
      */
     exit();
 }
 
-$row = $_SESSION['user_row']; // Use $row as needed
+$row = $_SESSION['user_row']; // Use $row conforme necessário
 
-// Fetch items from the database
+// Busca itens no banco de dados
 $items = fetchItems($connection);
 
-// Handle form submission
+// Manipula o envio do formulário
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit'])) {
-    if (!empty($_POST["nome"])) {
-        $nome = $_POST['nome'];
+    if (!empty($_POST["name"])) {
+        $name = $_POST['name'];
         $image = $_FILES['image']['name'] ?? null;
         $targetDir = "uploads/";
 
-        // Ensure the uploads directory exists
+        // Garante que o diretório de uploads exista
         if (!is_dir($targetDir)) {
             mkdir($targetDir, 0777, true);
         }
 
         $targetFile = $targetDir . basename($image);
 
-        // Move the uploaded file to the target directory
+        // Move o arquivo enviado para o diretório de destino
         if (move_uploaded_file($_FILES['image']['tmp_name'], $targetFile)) {
-            addItem($nome, $image);
-            $_POST['nome'] = '';
+            addItem($name, $image);
+            $_POST['name'] = '';
             $_FILES['image']['name'] = null;
             header("Refresh:0");
 
         } else {
-            $_POST['nome'] = '';
+            $_POST['name'] = '';
             $_FILES['image']['name'] = null;
-            addItem($nome, null);
+            addItem($name, null);
             header("Refresh:0");
 
-            echo "Item added without image.";
+            echo "Item adicionado sem imagem.";
         }
     } else {
-        echo "Name field cannot be empty!";
+        echo "O campo Nome não pode estar vazio!";
     }
 }
 ?>
@@ -68,8 +68,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit'])) {
     <header>
         <div class="headsssss">
             <form role="search" id="form">
-                <input type="search" id="query" name="q" placeholder="Search..."
-                    aria-label="Search through site content" onkeyup="filterItems()">
+                <input type="search" id="query" name="q" placeholder="Pesquisar..."
+                    aria-label="Pesquisar conteúdo do site" onkeyup="filterItems()">
                 <button type="button">
                     <svg viewBox="0 0 1024 1024">
                         <path class="path1"
@@ -84,19 +84,19 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit'])) {
 
     <div class="card-container" id="cardContainer">
         <?php foreach ($items as $item): ?>
-            <div class="card" data-nome="<?php echo htmlspecialchars($item['nome']); ?>"
-                onclick="window.location.href='search.php?q=<?= $item['ID'] ?>'">
+            <div class="card" data-name="<?php echo htmlspecialchars($item['name']); ?>"
+                onclick="window.location.href='search.php?q=<?= $item['topic_id'] ?>'">
                 <div class="card-inner">
                     <div class="card-front"
                         style="background-image: url('uploads/<?php echo htmlspecialchars($item['image']); ?>'); background-size: 100% 100%;">
                         <p>
-                            <?php echo htmlspecialchars($item['nome']); ?>
+                            <?php echo htmlspecialchars($item['name']); ?>
                         </p>
                     </div>
                     <div class="card-back">
                         <p>
                             <?php
-                            $facts = getFacts($connection, $item['ID']);
+                            $facts = getFacts($connection, $item['topic_id']);
                             $randomIndex = $facts ? rand(0, count($facts) - 1) : null;
                             $randomFact = $facts ? $facts[$randomIndex]['fact'] : "null";
                             echo $randomFact;
@@ -128,33 +128,33 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit'])) {
                     d="M1.84998 7.49998C1.84998 4.66458 4.05979 1.84998 7.49998 1.84998C10.2783 1.84998 11.6515 3.9064 12.2367 5H10.5C10.2239 5 10 5.22386 10 5.5C10 5.77614 10.2239 6 10.5 6H13.5C13.7761 6 14 5.77614 14 5.5V2.5C14 2.22386 13.7761 2 13.5 2C13.2239 2 13 2.22386 13 2.5V4.31318C12.2955 3.07126 10.6659 0.849976 7.49998 0.849976C3.43716 0.849976 0.849976 4.18537 0.849976 7.49998C0.849976 10.8146 3.43716 14.15 7.49998 14.15C9.44382 14.15 11.0622 13.3808 12.2145 12.2084C12.8315 11.5806 13.3133 10.839 13.6418 10.0407C13.7469 9.78536 13.6251 9.49315 13.3698 9.38806C13.1144 9.28296 12.8222 9.40478 12.7171 9.66014C12.4363 10.3425 12.0251 10.9745 11.5013 11.5074C10.5295 12.4963 9.16504 13.15 7.49998 13.15C4.05979 13.15 1.84998 10.3354 1.84998 7.49998Z"
                     fill="#fff" />
             </svg></button>
-        <button id="popoverBtn">Add</button>
+        <button id="popoverBtn">Adicionar</button>
         <div id="popover" class="popover" style="display: none;">
             <form action="main.php" method="post" enctype="multipart/form-data" class="popover-form">
-                <label for="nome">Name:</label><br>
-                <input type="text" id="nome" name="nome" required><br>
+                <label for="name">Nome:</label><br>
+                <input type="text" id="name" name="name" required><br>
                 <script class="jsbin" src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
                 <div class="file-upload">
-                    <button class="file-upload-btn" type="button" onclick="$('.file-upload-input').trigger('click')">Add
-                        Image</button>
+                    <button class="file-upload-btn" type="button" onclick="$('.file-upload-input').trigger('click')">Adicionar
+                        Imagem</button>
                     <div class="image-upload-wrap">
                         <input class="file-upload-input" type='file' name="image" onchange="readURL(this);"
                             accept="image/*" />
                         <div class="drag-text">
-                            <h3>Drag and drop a file or select add Image</h3>
+                            <h3>Arraste e solte um arquivo ou selecione para adicionar uma imagem</h3>
                         </div>
                     </div>
                     <div class="file-upload-content">
-                        <img class="file-upload-image" src="#" alt="your image" />
+                        <img class="file-upload-image" src="#" alt="sua imagem" />
                         <div class="image-title-wrap">
-                            <button type="button" onclick="removeUpload()" class="remove-image">Remove <span
-                                    class="image-title">Uploaded Image</span></button>
+                            <button type="button" onclick="removeUpload()" class="remove-image">Remover <span
+                                    class="image-title">Imagem enviada</span></button>
                         </div>
                     </div>
                 </div>
                 <div class="popover-button-container">
-                    <button type="submit" id="confirmBtn" name="submit">Confirm</button>
-                    <button type="button" id="cancelBtn">Cancel</button>
+                    <button type="submit" id="confirmBtn" name="submit">Confirmar</button>
+                    <button type="button" id="cancelBtn">Cancelar</button>
                 </div>
             </form>
         </div>

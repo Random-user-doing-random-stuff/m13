@@ -1,5 +1,6 @@
 @import './global.css';
 
+/* Estilos da tabela */
 table {
   border-collapse: collapse;
   width: 100%;
@@ -18,6 +19,7 @@ tr:nth-child(even) {
   background-color: #ffffff;
 }
 
+/* Estilos do cabeçalho */
 header {
   width: 100%;
   display: flex;
@@ -35,6 +37,7 @@ header {
   margin: 0 110px;
 }
 
+/* Estilos do botão "Adicionar" */
 .add-fact {
   margin-top: 15px;
   display: flex;
@@ -42,13 +45,14 @@ header {
   color: #ffffff;
   width: 15%;
   border-radius: 5px;
-  margin: 20px auto; /* Adjust the margin-top value to move it down */
+  margin: 20px auto; /* Ajuste o valor de margin-top para movê-lo para baixo */
   flex-direction: row;
   flex-wrap: nowrap;
   justify-content: center;
   align-items: center;
 }
 
+/* Estilos do botão "Editar" */
 .edit-fact {
   text-align: center;
   color: #ffffff;
@@ -61,6 +65,7 @@ header {
   text-align: center;
 }
 
+/* Estilos para o modo escuro */
 .dark-mode .title-search {
   color: #fff;
 }
@@ -76,14 +81,11 @@ header {
 .dark-mode th,
 .dark-mode td {
   color: #fff;
-  /* Set text color to white for both th and td in dark mode */
+  /* Define a cor do texto como branco para th e td no modo escuro */
 }
 
 .dark-mode td,
 .dark-mode th {
-  /*   border: 1px solid #dddddd;
-  text-align: left;
-  padding: 8px; */
   background-color: var(--light-theme-primary);
 }
 
@@ -107,5 +109,14 @@ header {
 .dark-mode tr:nth-child(even) th,
 .dark-mode tr:nth-child(even) td {
   border-radius: 5px;
-  background-color: var(--dark-theme-primary); /* Set background color for even rows and their child elements in dark mode */
+  background-color: var(--dark-theme-primary); /* Define a cor de fundo para linhas pares e seus elementos filhos no modo escuro */
+}
+
+.light-mode .non-editable,
+.light-mode .editable {
+  color: #000;
+}
+
+#popoverBtn {
+  margin-top: 14px;
 }
