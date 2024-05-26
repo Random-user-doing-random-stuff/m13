@@ -1,4 +1,5 @@
 <link rel="stylesheet" href="menu/menu.css">
+<?php $is_loggedin=isset($_SESSION['user_row']) ?>
 <aside id="sidebar">
   <div class="sidebar_content sidebar_head">
     <h1>wussten Sie?</h1>
@@ -6,11 +7,16 @@
   <div class="sidebar_content sidebar_body">
     <nav class="side_navlinks">
       <ul>
-        <li><a href="#">Home</a></li>
-        <li><a href="#">Account</a></li>
+        <?php
+      if($is_loggedin) {
+
+        echo "<li><a href='main.php'> Home</a></li>";
+        echo "<li><a href='account.php'>Account</a></li>";
+      }
+        ?>
         <li>
-          <a href="<?php echo isset($_SESSION['user_row']) ? 'logout.php' : 'login.php'; ?>">
-            <?php echo isset($_SESSION['user_row']) ? 'Logout' : 'Login'; ?>
+          <a href="<?php echo $is_loggedin ? 'logout.php' : 'login.php'; ?>">
+            <?php echo $is_loggedin ? 'Logout' : 'Login'; ?>
           </a>
         </li>
         <li><a href="about.php">About</a></li>
@@ -23,8 +29,8 @@
   </div>
 </aside>
 <div class="sidebar_toggler">
-  <span></span>
-  <span></span>
-  <span></span>
+  <span class="slidebar-arrow"></span>
+  <span class="slidebar-arrow"></span>
+  <span class="slidebar-arrow"></span>
 </div>
 <script src="menu/menu.js"></script>

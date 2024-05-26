@@ -34,7 +34,6 @@ function filterItems() {
  // Handle form submission when confirm button is clicked
  confirmBtn.addEventListener('click', () => {
    const name = document.getElementById('name').value;
-   const image = document.getElementById('file-upload-input').value;
 
    // Handle form submission (e.g., send data to server)
    console.log('Name:', name);
@@ -76,3 +75,4 @@ $('.image-upload-wrap').bind('dragover', function () {
    $('.image-upload-wrap').bind('dragleave', function () {
        $('.image-upload-wrap').removeClass('image-dropping');
 });
+

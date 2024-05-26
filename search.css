@@ -1,0 +1,111 @@
+@import './global.css';
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+  margin: 0 auto;
+  background-color: #f2f2f2;
+}
+
+td,
+th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #ffffff;
+}
+
+header {
+  width: 100%;
+  display: flex;
+  padding: 10px;
+  column-gap: normal;
+  justify-content: center;
+}
+
+.headsssss {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  width: 100%;
+  padding: 10px;
+  margin: 0 110px;
+}
+
+.add-fact {
+  margin-top: 15px;
+  display: flex;
+  text-align: center;
+  color: #ffffff;
+  width: 15%;
+  border-radius: 5px;
+  margin: 20px auto; /* Adjust the margin-top value to move it down */
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.edit-fact {
+  text-align: center;
+  color: #ffffff;
+  width: 100%;
+  float: left;
+  border-radius: 5px;
+}
+
+.title-search {
+  text-align: center;
+}
+
+.dark-mode .title-search {
+  color: #fff;
+}
+
+.light-mode .title-search {
+  color: #000;
+}
+
+.light-mode th,
+.light-mode td {
+  color: #000 ;
+}
+.dark-mode th,
+.dark-mode td {
+  color: #fff;
+  /* Set text color to white for both th and td in dark mode */
+}
+
+.dark-mode td,
+.dark-mode th {
+  /*   border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px; */
+  background-color: var(--light-theme-primary);
+}
+
+.dark-mode .edit-fact {
+  background-color: var(--dark-theme-secondary);
+}
+
+.dark-mode .add-fact {
+  background-color: var(--dark-theme-secondary);
+}
+
+.light-mode .edit-fact {
+  background-color: var(--light-theme-secondary);
+}
+
+.light-mode .add-fact {
+  background-color: var(--light-theme-secondary);
+}
+
+.dark-mode tr:nth-child(even),
+.dark-mode tr:nth-child(even) th,
+.dark-mode tr:nth-child(even) td {
+  border-radius: 5px;
+  background-color: var(--dark-theme-primary); /* Set background color for even rows and their child elements in dark mode */
+}

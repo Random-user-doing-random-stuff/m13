@@ -39,9 +39,10 @@ input {
 }
 
 .container {
+	margin: 50px 0;
 	min-width: 260px;
 	width: 16%;
-	height: 35%;
+	height: auto;
 	border-radius: 10px;
 	position: fixed;
 	top: 30%;
@@ -63,15 +64,21 @@ body {
 	/* background-repeat: no-repeat; */
 	background-color: var(--light-theme-background);
 	background-attachment: fixed;
-	background-size: 100% 100%;
+	/* background-size: 100% 100%; */
 }
 
 h2 {
-	/* text-shadow: -1px 0 white, 0 1px white, 1px 0 white, 0 -1px white; */
-	text-align: center;
-	margin-top: 10px;
-	z-index: 1;
-	font-size: 2.0em;
+    /* text-shadow: -1px 0 white, 0 1px white, 1px 0 white, 0 -1px white; */
+	clear: both;
+    text-align: center;
+    margin-top: 10px;
+    z-index: 1;
+    font-size: 2.0em;
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: center;
+    flex-direction: row;
+    align-items: center;
 }
 
 .register {
@@ -81,7 +88,6 @@ h2 {
 }
 
 .register:hover {
-	color: #84bf7c;
 	font-size: large;
 	transition: font-size 0.3s ease;
 	transform-origin: center;
@@ -105,6 +111,10 @@ header {
 
 body.light-mode {
 	background-color: var(--light-theme-background);
+	color: black;
+}
+
+body.light-mode h2{
 	color: black;
 }
 

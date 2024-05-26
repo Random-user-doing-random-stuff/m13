@@ -61,7 +61,8 @@ function fetchItems($connection)
     return $arr;
 }
 
-function addItem($nome, $image) {
+function addItem($nome, $image)
+{
     global $connection;
 
     $query = "INSERT INTO animals (nome, image) VALUES (:nome, :image)";
@@ -87,16 +88,53 @@ function getAnimal($connection, $animal_id)
     return $statement->fetch();
 }
 
-function getFacts($connection, $animal_id) {
+function getFacts($connection, $animal_id)
+{
     $query = 'SELECT * FROM user_animal WHERE animal_id = :animal_id';
     $statement = $connection->prepare($query);
     $statement->bindParam(':animal_id', $animal_id);
     $statement->execute();
 
-    return $statement->fetch();
+    return $statement->fetchAll();
+}
+function addFact($connection, $fact, $animal_id, $user_id)
+{
+    $query = "INSERT INTO user_animal (fact, animal_id, user_id) VALUES (:fact, :animal_id, :user_id)";
+    $statement = $connection->prepare($query);
+    $statement->bindParam(':fact', $fact);
+    $statement->bindParam(':animal_id', $animal_id);
+    $statement->bindParam(':user_id', $user_id);
+
+    try {
+        $statement->execute();
+        return 0;
+    } catch (PDOException $e) {
+        if ($e->getCode() == 23000 && strpos($e->getMessage(), 'Duplicate entry') !== false) {
+            echo "Error: Fact already exists for this animal and user.";
+        } else {
+            echo "Error: " . $e->getMessage();
+        }
+        return -1;
+    }
 }
 
-function debug_to_console($data) {
+function editFact($connection, $new_fact, $fact_id)
+{
+    $query = "UPDATE user_animal SET fact = :fact WHERE id = :fact_id";
+    $statement = $connection->prepare($query);
+    $statement->bindParam(':fact', $new_fact);
+    $statement->bindParam(':fact_id', $fact_id);
+
+    try {
+        $statement->execute();
+        return 0;
+    } catch (PDOException $e) {
+        echo "Error: " . $e->getMessage();
+        return -1;
+    }
+}
+function debug_to_console($data)
+{
     $output = $data;
     if (is_array($output))
         $output = implode(',', $output);
