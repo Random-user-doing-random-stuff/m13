@@ -141,7 +141,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit'])) {
                         <input class="file-upload-input" type='file' name="image" onchange="readURL(this);"
                             accept="image/*" />
                         <div class="drag-text">
-                            <h3>Arraste e solte um arquivo ou selecione para adicionar uma imagem</h3>
+                            <h3>Arraste e solte um ficheiro ou selecione para adicionar uma imagem</h3>
                         </div>
                     </div>
                     <div class="file-upload-content">
