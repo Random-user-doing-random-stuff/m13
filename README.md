@@ -1,3 +1,3 @@
 To be continued ...
-or maybe not, PHP sucks
+or maybe not, PHP sucks.
 this is a complete mess
